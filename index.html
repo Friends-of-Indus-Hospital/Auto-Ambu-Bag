@@ -1,732 +1,638 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto-AmbuBag - Portable Automated BVM Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Auto-AmbuBag - A Portable Automated BVM</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            --primary-color: #005A9C; /* Accent color: Professional Blue */
-            --dark-color: #333; /* Dark gray for text */
-            --light-color: #f4f4f4; /* Very light gray for section background */
-            --white-color: #ffffff;
-            --font-family: 'Lato', sans-serif;
-            --border-radius-soft: 12px;
-            --spacing-l: 25px; /* Large spacing unit */
-            --spacing-m: 1.5rem; /* Medium spacing for paragraphs */
-        }
-
-        /* Base Reset and Typography */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* ---------------------------------- */
+        /* Global Styles & Resets             */
+        /* ---------------------------------- */
         html {
             scroll-behavior: smooth;
+            /* Offsets scroll-to-id for the fixed nav bar */
+            scroll-padding-top: 70px; 
         }
 
         body {
-            font-family: var(--font-family);
-            line-height: 1.8; /* Generous line height for easy reading */
-            color: var(--dark-color);
-            background-color: var(--white-color);
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', 'Helvetica', sans-serif;
+            background-color: #ffffff;
+            color: #333333; /* Dark gray for text */
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s;
+        * {
+            box-sizing: border-box;
         }
 
-        a:hover {
-            color: #003d68; 
-            text-decoration: underline;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
-            padding: 0 var(--spacing-l);
-        }
-
-        /* General Headings Spacing and Style */
-        h1, h2, h3 {
-            line-height: 1.2;
+        /* ---------------------------------- */
+        /* Typography & Links                 */
+        /* ---------------------------------- */
+        h1, h2, h3, h4 {
             font-weight: 700;
+            color: #1a1a1a;
+            margin-top: 0;
+            margin-bottom: 25px; /* Added more spacing */
         }
-        
+
         h2 {
             font-size: 2.5rem;
             text-align: center;
-            color: var(--primary-color);
-            margin-top: 2.5rem;
-            margin-bottom: var(--spacing-l); /* Extra spacing after main header */
+            margin-bottom: 50px; /* More spacing */
+            padding-bottom: 15px;
+            border-bottom: 3px solid #005A9C; /* Accent color */
+            display: inline-block;
         }
 
         h3 {
-            font-size: 1.75rem;
-            color: var(--dark-color);
-            border-bottom: 2px solid var(--light-color);
-            padding-bottom: 0.5rem;
-            margin-top: 2rem; /* Spacing before sub-header */
-            margin-bottom: 1rem;
+            font-size: 1.9rem;
+            color: #005A9C;
+            margin-bottom: 30px;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #005A9C;
+            padding-bottom: 8px;
+            display: inline-block;
+            margin-top: 25px;
         }
 
         p {
-            margin-bottom: var(--spacing-m); /* Adequate vertical spacing */
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: #005A9C;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------------------------------- */
+        /* Layout Containers                  */
+        /* ---------------------------------- */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 0; /* Generous padding */
+        }
+
+        .container-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        /* Ensure <strong> in team section (names) remains bold (not body text) */
-        .team-member strong {
-            display: block;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            margin-bottom: 5px;
+        .split-layout {
+            display: flex;
+            flex-direction: column; /* Mobile-first */
+            gap: 40px;
+            margin-bottom: 30px;
+            align-items: center;
         }
 
+        .split-layout .text-content {
+            flex: 1.2;
+            text-align: left;
+        }
 
-        /* --- 1. Navigation Bar --- */
-        .navbar {
+        .split-layout .image-container {
+            flex: 1;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .split-layout img {
+            max-width: 100%;
+            border-radius: 12px; /* Soft corners */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .image-container figcaption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* ---------------------------------- */
+        /* 1. Navigation Bar                  */
+        /* ---------------------------------- */
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: var(--white-color);
-            color: var(--dark-color);
+            height: 70px;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar .container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 1rem var(--spacing-l);
         }
 
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .navbar ul {
-            display: flex;
+        nav ul {
             list-style: none;
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .navbar ul li a {
-            padding: 0.5rem 1rem;
+        nav li {
+            margin: 5px 20px;
+        }
+
+        nav a {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 5px 0;
             text-transform: uppercase;
-            font-weight: 400;
-            color: var(--dark-color);
+            letter-spacing: 0.5px;
         }
 
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--dark-color);
+        nav a:hover {
+            color: #005A9C;
+            text-decoration: none;
         }
 
-        /* --- 2. Hero Section --- */
-        .hero {
+        /* ---------------------------------- */
+        /* 2. Hero Section                    */
+        /* ---------------------------------- */
+        header.hero {
             position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 60px; 
-            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 0 20px;
+            /* Image path from your GitHub folder */
+            background-image: url('images/Complete Device and BVM 2.jpeg');
         }
-        
-        .hero-video-container {
+
+        header.hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.6); /* Darker overlay for readability */
         }
 
-        .hero-video-container iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw; 
-            height: 100vh;
-            min-width: 100%;
-            min-height: 100%;
-            transform: translate(-50%, -50%);
-            pointer-events: none; 
-            filter: brightness(0.65);
-        }
-        
-        .hero-overlay {
+        .hero-content {
             position: relative;
             z-index: 2;
-            background-color: rgba(0, 0, 0, 0.4); 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--white-color);
-            padding: 2.5rem 5rem;
-            max-width: 90%;
-            border-radius: var(--border-radius-soft);
         }
 
-        .hero h1 {
+        .hero-content h1 {
             font-size: 3.8rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .hero p {
-            font-size: 1.6rem;
-            font-weight: 300;
-            margin-bottom: 0;
-        }
-
-        /* --- General Section Styling --- */
-        section {
-            padding: 5rem 0;
-            scroll-padding-top: 80px; 
-        }
-
-        .section-light {
-            background-color: var(--light-color);
-        }
-        
-        /* Center the content of sections, but NOT the engineering notebook entries */
-        .container:not(#engineering .container) > * {
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-        
-        /* Reset alignment for elements that need to be left-aligned for readability */
-        .container:not(#engineering .container) h3,
-        .container:not(#engineering .container) p,
-        .container:not(#engineering .container) .challenge-list,
-        .container:not(#engineering .container) .flow-list {
-            max-width: 800px; /* Optional: constrain width for better readability */
-            text-align: left; /* Keep the actual text content left aligned */
-        }
-        
-        /* Custom Styling for Challenge List Boxes */
-        .challenge-list {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 2.5rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 15px;
-            text-align: left;
-        }
-
-        .challenge-list li {
-            background: var(--white-color);
-            padding: 15px 20px;
-            border: 1px solid var(--primary-color);
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-            border-radius: var(--border-radius-soft);
-            font-weight: 400;
-            /* REMOVED: list-style: none; (it was inherited, but ensuring no bullet is shown) */
-        }
-        
-        /* Styling for the bold requirement text within the list item */
-        .challenge-list li span.key-req {
-            color: var(--primary-color);
-            font-weight: 700;
-            display: block; 
-            margin-bottom: 5px;
-        }
-        
-        
-        /* --- 4. Engineering Notebook Section --- */
-        .engineering-entry {
-            background: var(--white-color);
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-            border-radius: var(--border-radius-soft);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: auto;
-            /* CRITICAL: Ensure text is left-aligned within entries */
-            text-align: left; 
-        }
-
-        .engineering-entry h4 {
-            font-size: 1.6rem;
-            color: var(--primary-color);
-            margin-top: 0;
-            border-bottom: 1px solid var(--light-color);
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.5rem;
-            text-align: left; /* Ensure h4 is left-aligned */
-        }
-
-        .entry-section {
-            margin-top: 1.5rem;
-        }
-
-        /* Style for section headers in entries (formerly bold) */
-        .entry-section span.section-header {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        /* Flowchart-style list for the introductory engineering decisions */
-        .flow-list {
-            list-style: none;
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 2.5rem;
-            text-align: left; /* Ensure text is left-aligned */
-        }
-        
-        .flow-list li {
-            background: var(--white-color);
-            padding: 15px 25px;
-            border-left: 4px solid var(--primary-color);
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
-            position: relative;
-        }
-
-        /* Entry Options Explored List Styling (Square Bullets) */
-        .entry-section ul {
-            list-style: none; 
-            padding-left: 0;
-            margin-bottom: 1.5rem;
-            text-align: left; /* Ensure list is left-aligned */
-        }
-        
-        .entry-section ul li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 8px;
-        }
-
-        .entry-section ul li::before {
-            content: '▪'; /* Square bullet */
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Image Styling and Floating */
-        .image-container {
-            text-align: center;
-            padding: 1rem;
-            background-color: var(--light-color);
-            border-radius: var(--border-radius-soft);
-            overflow: hidden;
-            width: 300px; 
-            max-width: 100%;
-        }
-        
-        .image-float-right {
-            float: right;
-            margin-left: var(--spacing-l);
             margin-bottom: 15px;
-            margin-top: 0.5rem;
-        }
-        
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-height: 300px;
-            object-fit: contain;
+            color: #ffffff;
         }
 
-        .image-container p {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 0.8rem;
-            font-style: italic; /* Kept italic for caption, as requested previously */
-            line-height: 1.4;
-        }
-        
-        /* --- Utility to clear floats --- */
-        .clear-float {
-            clear: both;
-            /* Ensures that the element starts below any preceding floated elements */
-        }
-        
-        /* --- 6. Team & Acknowledgements Section --- */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-            /* NEW: Reset grid alignment to left within its container */
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 900px;
-            text-align: left;
-        }
-        
-        /* Styling for Team Member/Advisor Boxes (Soft Corners) */
-        .team-member {
-            background: var(--white-color);
-            padding: 1.5rem;
-            border: 1px solid var(--light-color);
-            border-radius: var(--border-radius-soft); 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-        
-        .team-member p {
-            margin: 0;
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-        
-        /* --- Separator and Footer --- */
-        .separator {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 90, 156, 0.5), rgba(0, 0, 0, 0));
-            margin: 2.5rem auto; /* Center the separator */
+        .hero-content p {
+            font-size: 1.5rem;
+            font-weight: 300;
             max-width: 800px;
         }
 
-        .contact {
-            text-align: center;
-            padding: 4rem 0;
-            background-color: var(--dark-color);
-            color: var(--white-color);
+        /* ---------------------------------- */
+        /* 3. "The Project" Section           */
+        /* ---------------------------------- */
+        section {
+            padding-top: 70px; /* Offset for fixed nav */
+        }
+        
+        section:nth-of-type(even) {
+            background-color: #f9f9f9;
         }
 
-        .contact h2 {
-            color: var(--white-color);
+        ul.requirements-list {
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        .contact a {
-            color: var(--primary-color);
-            font-weight: 700;
+        ul.requirements-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        ul.requirements-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #005A9C;
+            font-weight: 900;
             font-size: 1.2rem;
         }
 
+        /* ---------------------------------- */
+        /* 4. "Engineering Notebook" Section  */
+        /* ---------------------------------- */
+        .entry {
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 12px; /* Soft corners */
+            padding: 35px 45px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            text-align: left;
+            width: 100%;
+        }
 
-        /* --- Responsiveness (Media Queries) --- */
-        @media (max-width: 900px) {
-            .image-float-right, .image-float-left {
-                float: none;
-                width: 100%;
-                margin: 20px 0;
-            }
-            
-            .challenge-list {
-                grid-template-columns: 1fr;
-            }
+        ul.design-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 25px;
+        }
+
+        ul.design-bullets li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+        }
+
+        ul.design-bullets li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            font-size: 1.2rem;
         }
         
+        /* Styled list for design options */
+        .options-list {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .options-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .options-list li::before {
+            content: '•';
+            color: #005A9C;
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* Numbered list for the motor journey */
+        ol.journey-list {
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+        ol.journey-list li {
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        ol.journey-list li strong {
+            color: #333;
+        }
+
+
+        /* ---------------------------------- */
+        /* 6. "Team & Acknowledgements" Section */
+        /* ---------------------------------- */
+        .team-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .team-list li {
+            background: #f0f0f0;
+            border-radius: 12px; /* Soft "square" corners */
+            padding: 12px 20px;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .team-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .team-list li a {
+            font-weight: 700;
+        }
+        
+        .supporters p {
+            text-align: center;
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ---------------------------------- */
+        /* 7. Footer / Contact Section        */
+        /* ---------------------------------- */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        footer h2 {
+            color: white;
+            border: none;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+
+        footer a {
+            color: white;
+            font-weight: 700;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------------------------------- */
+        /* Responsive Design                  */
+        /* ---------------------------------- */
         @media (max-width: 768px) {
-            .navbar ul {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                top: 60px;
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
 
-            .navbar ul.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-            
-            .hero-overlay {
-                padding: 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
+            .hero-content p {
+                font-size: 1.2rem;
             }
 
             h2 {
                 font-size: 2rem;
             }
-            
-            h3 {
-                font-size: 1.35rem;
-            }
-            
-            section {
-                padding: 3rem 0;
-            }
 
-            .flow-list {
-                gap: 15px;
+            .entry {
+                padding: 25px 30px;
+            }
+            
+            nav ul {
+                padding: 0 10px;
+            }
+            
+            nav li {
+                margin: 5px 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .split-layout {
+                flex-direction: row; /* Switch to side-by-side on desktop */
+                align-items: flex-start;
+            }
+            
+            /* Class to reverse image/text order */
+            .split-layout.reverse {
+                flex-direction: row-reverse;
             }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container">
-            <span class="logo">Auto-AmbuBag</span>
-            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
-            <ul id="nav-links">
-                <li><a href="#project">Project</a></li>
-                <li><a href="#engineering">Engineering</a></li>
-                <li><a href="#impact">Impact</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <nav>
+        <ul>
+            <li><a href="#project">Project</a></li>
+            <li><a href="#engineering">Engineering</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
-    <header id="hero" class="hero">
-        <div class="hero-video-container">
-            <iframe 
-                src="https://www.youtube.com/embed/yAOU9Yi40EQ?autoplay=1&mute=1&controls=0&loop=1&playlist=yAOU9Yi40EQ&si=0dN8rkxRo_q_O23x" 
-                title="Auto-AmbuBag Device Video" 
-                allow="autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                frameborder="0" 
-                allowfullscreen>
-            </iframe>
-        </div>
-        
-        <div class="hero-overlay">
+    <header class="hero" id="hero">
+        <div class="hero-content">
             <h1>Auto-AmbuBag - A Portable Automated BVM</h1>
-            <p>Collaboration with Indus Hospital for use in disaster response and rural healthcare in Pakistan.</p>
+            <p>A collaboration with Indus Hospital for disaster response and rural healthcare in Pakistan.</p>
         </div>
     </header>
-    
-    <section id="project">
-        <div class="container">
-            <h2>From Clinical Need to Working Device</h2>
-            <div class="separator"></div>
-            
-            <h3>The Challenge: Requirements from Indus Hospital</h3>
-            <p>The <a href="https://indushospital.com.pk" target="_blank">Indus Hospital & Health Network</a> is the largest health network in Pakistan, providing absolutely free healthcare to 6 million people annually. Pakistan is also among the top 5 climate change vulnerable nations, devastated by frequent monsoon floods. To better support the health needs during disasters and hard-to-reach rural areas, Indus hospital desires to create a low-cost ventilator that is safe and portable. The key requirements are:</p>
-            
-            <ul class="challenge-list">
-                <li><span class="key-req">Light weight and small size</span> for portability.</li>
-                <li><span class="key-req">Can operate on battery backup for at least 2 hours</span> to deal with unreliable or damaged power infrastructure.</li>
-                <li><span class="key-req">Can be used for transporting patients</span> over unpaved or damaged roads.</li>
-                <li><span class="key-req">Safety features</span> for lung pressure monitoring and emergency stop.</li>
-                <li><span class="key-req">User controls</span> for breath per minute, Tidal Volume, and Inhale-Exhale ratio with specific ranges.</li>
-                <li><span class="key-req">In the first version, the device needs to work only for adults</span> (no infant or child support).</li>
-                <li><span class="key-req">Keep cost under $1000</span> (retail cost is over $10,000).</li>
-            </ul>
-            
-            <h3>Our Solution: Building on Open-Source Foundations</h3>
-            <p>To solve this problem, we started from the <a href="https://emergency-vent.mit.edu/" target="_blank">MIT Emergency Ventilator</a> open-source project. The E-Vent project was conceived at the height of COVID, when worldwide shortage of ventilators was causing severe challenges. We researched several other open-source projects that build on the MIT design and found the <a href="https://www.monolithicpower.com/en/mps-open-source-ventilator" target="_blank">MPS design</a> to be a good fit. Our solution learns from both these projects and modifies them in several key ways to meet the requirements for the Auto-AmbuBag.</p>
-        </div>
-    </section>
 
-    <section id="engineering" class="section-light">
-        <div class="container">
-            <h2>Our Design Process: A Quick Overview</h2>
-            <div class="separator"></div>
-            
-            <p>Starting from the requirements, we held a series of meetings with our Advisors who suggested various options to explore for hardware and software needs. Given the trail blazed by MIT & MPS prototypes, some decisions were relatively easy to make:</p>
-            <ul class="flow-list">
-                <li>Using an Arduino as the microcontroller for the AutoBVM.</li>
-                <li>Using a system of gears to exert rotational force, resulting in a smaller device (for portability) and better duty cycle (reliability).</li>
-                <li>Utilize encoder on the motor to granularly control the speed and range of motion of the respiration phases. This was one of key learnings (<a href="https://emergency-vent.mit.edu/mechanical/motor-selection/" target="_blank">MIT project</a>).</li>
-                <li>Implement the same user interface recommendation made by the MIT project (user controls for BPM, Tidal Volume, I/E ratio and lung pressure).</li>
-            </ul>
+    <main>
+        <section id="project">
+            <div class="container container-center">
+                <h2>From Clinical Need to Working Device</h2>
 
-            <p>By leveraging the existing state-of-the-art, we were able to make rapid progress on many aspects of the design and implementation. There were some requirements unique to the Indus Hospital use case that necessitated innovation and/or deviation from the original design. As a result, we:</p>
-            <ul class="flow-list">
-                <li>Reduced the physical size by making efficient use of the space within the device. The Auto-AmbuBag device is significantly smaller than both MIT and MPS devices.</li>
-                <li>Incorporated a power management and battery charging module to enable switching over the battery in case of power outages.</li>
-                <li>Switched to a 12V ecosystem to enable charging and operating the device from the power outlet of an ambulance during patient transportation.</li>
-                <li>Conserved power by using a 9 N-m motor (lower power than the 15 N-m minimum for COVID patients), a non-touch screen display with aggressive brightness controls, and removing the need for any active cooling.</li>
-                <li>Added an SpO2 sensor that comes with the Auto-AmbuBag to monitor Oxygen saturation, displayed on the screen for the clinician.</li>
-            </ul>
-            <p>The modifications above made it possible to take advantage of existing open-source knowledge where possible, while adjusting the design for the unique needs we had to meet.</p>
-            
-            <div class="engineering-entry">
-                <h4>Entry 1: Power System</h4>
-                <div class="image-container image-float-right">
-                    <img src="./batteryimage.jpeg" alt="Lithium-Ion Battery used in the design">
-                    <p>Battery used in the design</p>
+                <div class="split-layout">
+                    <div class="text-content">
+                        <h3>The Challenge</h3>
+                        <p><a href="https://indushospital.com.pk" target="_blank" rel="noopener noreferrer">Indus Hospital</a>, Pakistan's largest free healthcare network, serves 6 million people annually in a nation highly vulnerable to climate change and frequent floods. To support health needs during disasters and in remote areas, Indus Hospital needed a low-cost, safe, and portable ventilator.</p>
+                        
+                        <p>The key design requirements were:</p>
+                        <ul class="requirements-list">
+                            <li><b>Safe:</b> Active lung pressure monitoring, emergency stop, and manual mode.</li>
+                            <li><b>Portable:</b> Lightweight, compact, and 2+ hours of battery operation.</li>
+                            <li><b>Intuitive:</b> Simple controls for BPM, Tidal Volume, I/E ratio, and alarms.</li>
+                            <li><b>Reliable:</b> A simple, rugged design for field operation.</li>
+                            <li><b>Economical:</b> Total cost of ownership under $1000 per device.</li>
+                            <li><b>Adult Use Only:</b> (With child/infant support planned for future releases).</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/Complete Device and BVM 2.jpeg" alt="The complete Auto-AmbuBag device">
+                        <figcaption>The Auto-AmbuBag Device</figcaption>
+                    </div>
                 </div>
-                <div class="entry-section">
-                    <span class="section-header">Challenge:</span> 
-                    <p>To design a power system that could run continuously for 4+ hours when plugged in and 2+ hours on battery.</p>
-                </div>
-                <div class="entry-section">
-                    <span class="section-header">Options Explored:</span>
-                    <ul>
-                        <li>Considered a 24V motor for efficiency, but rejected it as it would require a boost converter from 12V input, introducing complexity. We used 12V motors which efficiently manage the required load.</li>
-                        <li>Selected a low power, 2.4 inch LCD display with configurable backlight. With aggressive backlight control, we reduced the consumption to approximately 0.05Ah, which is negligible.</li>
-                        <li>For typical Indus configuration (15 bpm, Tidal vol of 750 & I:E of 2), the device drew less than 1 A of power hourly. Local testing used latex balloons to simulate lung resistance.</li>
-                    </ul>
-                </div>
-                <div class="entry-section">
-                    <span class="section-header">Decision & Rationale:</span>
-                    <p>We picked an off-the-shelf 4-cell and 6Ah Lithium-Ion battery that is easily procured and replaceable in Pakistan. We are confident we will comfortably exceed the 2-hour battery operation time. For future iterations, we are considering a different battery (8Ah, 4000+ cycle life, $18) for improved capacity and cost-efficiency.</p>
+
+                <div style="max-width: 900px; text-align: left; margin-top: 30px;">
+                    <h3>Our Solution: Building on Open Source Foundations</h3>
+                    <p>We began by standing on the shoulders of giants, starting with the <a href="https://emergency-vent.mit.edu/" target="_blank" rel="noopener noreferrer">MIT Emergency Ventilator</a>, a project born from the COVID-19 pandemic. We also researched other open-source designs, finding the <a href="https://www.monolithicpower.com/en/mps-open-source-ventilator" target="_blank" rel="noopener noreferrer">MPS design</a> to be a strong foundation. Our final solution learns from both, but modifies them in several key ways to meet the specific requirements of the Auto-AmbuBag.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="engineering-entry">
-                <h4>Entry 2: The Motor - The Heart of the system</h4>
-                <div class="image-container image-float-right">
-                    <img src="https://cdn11.bigcommerce.com/s-x56mtydx1w/images/stencil/original/products/1481/14805/5203-2402-0071__95957.1746576808.jpg?c=1" alt="goBILDA Yellow Jacket motor with encoder">
-                    <p>goBILDA Yellow Jacket motor with encoder</p>
+        <section id="engineering" style="background-color: #f9f9f9;">
+            <div class="container container-center">
+                <h2>Our Design Process: A Quick Overview</h2>
+                <p style="max-width: 900px; text-align: left; margin-bottom: 30px;">
+                    We followed a methodical design process, starting with our core requirements and holding regular meetings with our advisors. We used an Arduino microcontroller and, like the MPS design, a gear system for rotational force. This approach improves portability and reliability. A key learning from the <a href="https://emergency-vent.mit.edu/mechanical/motor-selection/" target="_blank" rel="noopener noreferrer">MIT project</a> was to use a motor encoder to granularly control the respiration phases.
+                </p>
+                
+                <p style="max-width: 900px; text-align: left;">
+                    Leveraging existing open-source work allowed for rapid progress. However, several requirements unique to Indus Hospital's use case demanded innovation.
+                </p>
+
+                <ul class="design-bullets" style="max-width: 900px; text-align: left; margin-top: 20px;">
+                    <li><b>Reduced Size:</b> We optimized the internal layout and sourced smaller components (power supply, integrated-gear motor) to create a final design significantly smaller than both the MIT and MPS references.</li>
+                    <li><b>Battery Backup:</b> We incorporated a power management and battery charging module to switch seamlessly to battery power during outages.</li>
+                    <li><b>12V Ecosystem:</b> We switched to a 12V system, enabling the device to be charged and operated from a standard ambulance power outlet during patient transport.</li>
+                    <li><b>Power Efficiency:</b> We selected a 9 N-m motor (versus 15 N-m for resistant COVID lungs), significantly reducing power needs. A non-touch display with aggressive brightness controls further conserved power, eliminating the need for active cooling.</li>
+                    <li><b>Future-Ready:</b> The design includes the ability to add an SpO2 sensor, allowing clinicians to monitor blood oxygen and make evidence-based adjustments.</li>
+                </ul>
+
+                <div class="entry">
+                    <h3>Power System</h3>
+                    <div class="split-layout reverse">
+                        <div class="text-content">
+                            <h4>Challenge</h4>
+                            <p>Design a power system to run 4+ hours plugged in and 2+ hours on battery.</p>
+
+                            <h4>Options Explored</h4>
+                            <ul class="options-list">
+                                <li><b>Motor Voltage:</b> A 24V motor is more efficient but would require a 12V boost converter, adding a point of failure.</li>
+                                <li><b>Display:</b> We weighed OLED (price) vs. LED, and touch (power) vs. non-touch.</li>
+                                <li><b>Battery:</b> We compared Lead-Acid (heavy, unsafe, low cycle life) with LiPo (requires a charging circuit).</li>
+                            </ul>
+
+                            <h4>Decision & Rationale</h4>
+                            <p>We selected a 12V ecosystem. Testing confirmed a 12V motor could manage the load, simplifying the design and allowing for charging from ambulance outlets. We chose a <a href="httpsa.co/d/ajeEThy" target="_blank" rel="noopener noreferrer">4-cell, 6Ah off-the-shelf Li-ion battery</a>, which is easily replaceable in Pakistan and exceeds the 2-hour requirement. For the display, a low-power 2.4-inch LED with configurable backlight proved to have negligible power draw.</p>
+                        </div>
+                        <div class="image-container">
+                            <img src="images/Power System.JPEG" alt="Power System Diagram">
+                            <figcaption>Power System</figcaption>
+                            </div>
+                    </div>
                 </div>
-                <div class="entry-section">
-                    <span class="section-header">Challenge:</span> 
-                    <p>To generate controlled torque to squeeze the AmbuBag while operating in limited power conditions or during transport. This requires a high torque, low revolutions per minute (rpm) motor.</p>
+
+                <div class="entry">
+                    <h3>The Motor - The Heart of the System</h3>
+                    <div class="split-layout">
+                        <div class="text-content">
+                            <h4>Challenge</h4>
+                            <p>Find a high-torque, low-RPM motor that could generate controlled force to squeeze the AmbuBag while running on limited battery power.</p>
+
+                            <h4>Options Explored: A Month-Long Journey</h4>
+                            <p>This was our longest journey, filled with frustrating dead-ends. Our persistence here was key to the project's success.</p>
+                            <ol class="journey-list">
+                                <li><strong>BLDC Motor (from MPS):</strong> Excellent quality, but this <a href="https://www.mouser.com/datasheet/2/277/msm942077-24_r1.01_6-1609159.pdf" target="_blank" rel="noopener noreferrer">donated motor</a>'s 4000 RPM required a complex 100:1 planetary gear system, making the device too large.</li>
+                                <li><strong>Stepper Motor (Attempt 1):</strong> We struggled with drivers for this <a href="https://a.co/d/0LqEFvk" target="_blank" rel="noopener noreferrer">low-rpm stepper motor</a>—the TMC2208 was hot, loud, and power-hungry. The TB6600 was better but still inefficient. We finally landed on the BTS7960 chipset.</li>
+                                <li><strong>Stepper Motor (Attempt 2):</strong> The motor skipped under load. We added an encoder (as per MIT's learnings) but found the stepper motor stubbornly difficult to control.</li>
+                                <li><strong>Stepper Motor (Attempt 3):</strong> A <a href="httpsa.co/d/4Vv7Gwl" target="_blank" rel="noopener noreferrer">higher-torque motor</a> *still* skipped. We finally contacted the manufacturer, who explained that stepper motors are fundamentally unsuited for this application.</li>
+                                <li><strong>DC Motor (Attempt 1):</strong> We switched to a <a href="https://www.pitsco.com/products/tetrix-max-torquenado-motor-with-encoder" target="_blank" rel="noopener noreferrer">TorqueNADO MAX</a> (5 N-m). It was smooth, but too weak for the full load.</li>
+                            </ol>
+
+                            <h4>Decision & Rationale</h4>
+                            <p>We finally selected the <strong>goBILDA Yellow Jacket DC brushed motor</strong> (9 N-m torque at 84 rpm). This motor met all our needs: low RPM, high torque, a built-in encoder, and low cost ($55). The goBILDA ecosystem also provided readily available mounts and drivers. This long process taught us the value of methodical testing and resilience.</p>
+                        </div>
+                        <div class="image-container">
+                            <img src="images/Motor 12V.jpeg" alt="goBILDA Yellow Jacket Motor">
+                            <figcaption>goBILDA Motor with encoder</figcaption>
+                            <img src="images/Motor with gearing system.JPEG" alt="Motor Gearing System" style="margin-top: 20px;">
+                            <figcaption>Gear system rotated by the motor</figcaption>
+                        </div>
+                    </div>
                 </div>
-                <div class="entry-section">
-                    <span class="section-header">Options Explored:</span>
-                    <ul>
-                        <li>Attempted a high-rpm brushless DC motor, but it required a complex 100:1 planetary gear and additional gearing, making the device too large.</li>
-                        <li>Tested multiple low-rpm stepper motors and various drivers. The stepper motors consistently skipped under load and proved difficult to control, and were deemed unsuitable.</li>
-                        <li>The TorqueNADO MAX motor (5 N-m torque) lacked the necessary torque at higher respiration settings.</li>
-                        <li>Selected the goBILDA Yellow Jacket DC motor with 9 N-m torque at 84 rpm speed, which performed perfectly across all configuration ranges and includes a built-in encoder.</li>
-                    </ul>
+
+                <div class="entry">
+                    <h3>User Interface (UI) & Controls</h3>
+                    <div class="split-layout reverse">
+                        <div class="text-content">
+                            <h4>Challenge</h4>
+                            <p>Create a simple, intuitive interface for clinicians to set ventilation parameters (BPM, Tidal Volume, I/E Ratio, PIP alarm).</p>
+
+                            <h4>Options Explored</h4>
+                            <ul class="options-list">
+                                <li><b>Navigation Pad:</b> A classic "up/down/left/right" control. Flexible, but requires many clicks to change a setting.</li>
+                                <li><b>LCD Screen with Potentiometers:</b> Low power and very easy to use. Allows for quick, precise, and independent control of each setting.</li>
+                            </ul>
+
+                            <h4>Decision & Rationale</h4>
+                            <p>We chose the potentiometer design. We will use four potentiometers to control each key parameter, allowing for rapid, instant adjustments. This tactile interface is also cheap and easy to replace in the field.</p>
+                        </div>
+                        <div class="image-container">
+                            <img src="images/User Controls.JPEG" alt="User Interface Controls">
+                            <figcaption>User Interface</figcaption>
+                        </div>
+                    </div>
                 </div>
-                <div class="entry-section">
-                    <span class="section-header">Decision & Rationale:</span>
-                    <p>We picked the goBILDA Yellow Jacket DC brushed motor. This motor met all our needs of low rpm, high torque, encoder support for closed-loop operation, and low cost ($55). The goBILDA ecosystem provides easily available mounts and drivers, resulting in a reliable and well-supported core component.</p>
+
+            </div>
+        </section>
+
+        <section id="impact">
+            <div class="container container-center">
+                <h2>Real-World Application & Pilot</h2>
+                
+                <h3 style="text-align: center;">Collaboration with <a href="https://indushospital.com.pk" target="_blank" rel="noopener noreferrer">Indus Hospital & Health Network</a></h3>
+                
+                <p style="max-width: 900px; text-align: left;">This project has been a deep collaboration with Indus Hospital staff from the start. The design meets all required specifications and has been approved by the biomedical department at Indus. Most of the original requirements are successfully implemented and tested. To ready the device for field testing at Indus Hospital, the following work remains:</p>
+                
+                <ul class="design-bullets" style="max-width: 900px; text-align: left; margin-top: 20px;">
+                    <li><b>Pressure Sensor:</b> Integrate a <a href="https://www.mouser.com/ProductDetail/Honeywell/HSCMRRV001PD2A3" target="_blank" rel="noopener noreferrer">Honeywell medical-grade pressure sensor</a> to monitor and control airway pressure.</li>
+                    <li><b>Localization:</b> Switch the power supply to the 220V AC standard used in Pakistan.</li>
+                    <li><b>Testing & Calibration:</b> The Indus Biomedical group will test the device with a breathing simulator and calibrate it for their specific AmbuBag model.</li>
+                    <li><b>SpO2 Sensor Integration:</b> The optional sensor has been implemented in software but not yet physically incorporated into the final device.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="team" style="background-color: #f9f9f9;">
+            <div class="container container-center">
+                <h2>Our Team & Supporters</h2>
+
+                <h3>Core Project Team</h3>
+                <ul class="team-list">
+                    <li><a href="https://www.linkedin.com/in/batul-siddiqui-19212a378/" target="_blank" rel="noopener noreferrer">Batul Siddiqui</a> – Hardware & Software Engineering</li>
+                    <li><a href="https://www.linkedin.com/in/eshaal-fatima-152250237/" target="_blank" rel="noopener noreferrer">Eshaal Fatima</a> – 3D Design & Fabrication (CAD)</li>
+                    <li><a href="https://www.linkedin.com/in/divya-gill-387884274" target="_blank" rel="noopener noreferrer">Divya Gill</a> – Documentation</li>
+                </ul>
+
+                <h3>Advisors & Mentors</h3>
+                <ul class="team-list">
+                    <li>Sadia Saleem: Asst. Manager Biomedical - Indus Hospital</li>
+                    <li>Palwasha Khan: Respiratory Therapist - Indus Hospital</li>
+                    <li>Zain Masaud: Clinical Nursing Instructor - Indus Hospital</li>
+                    <li>Faraz Khan: Principal Hardware Engineering - Exact Sciences</li>
+                    <li>Adeel Siddiqui: VP Software Engineering - RelationalAI</li>
+                </ul>
+                
+                <h3 style="margin-top: 40px;">Supporting Organizations</h3>
+                <div class="supporters">
+                    <p>We extend our sincere thanks to the medical team at <a href="https://indushospital.com.pk" target="_blank" rel="noopener noreferrer">Indus Hospital</a> for their guidance and to the <a href="https://www.monolithicpower.com/en/mps-open-source-ventilator" target="_blank" rel="noopener noreferrer">MPS Open Source Project</a> for their inspiration and motor donation.</p>
                 </div>
             </div>
-            
-            <div class="engineering-entry clear-float">
-                <h4>Entry 3: User Interface (UI) & Controls</h4>
-                <div class="image-container image-float-right">
-                    <img src="https://images.squarespace-cdn.com/content/v1/5a620c86010027ed573ce59a/1562100956416-BV329Y4B6ZOHRLEA4D8A/bvm.jpg?format=1500w" alt="Final LCD and encoder interface.">
-                    <p>From a simple potentiometer to the final LCD and encoder interface.</p>
-                </div>
-                <div class="entry-section">
-                    <span class="section-header">Challenge:</span> 
-                    <p>To create a simple, intuitive, and power-efficient interface for clinicians to view and precisely set ventilation parameters (BPM, Tidal Volume, I/E Ratio, Pressure, User messages).</p>
-                </div>
-                <div class="entry-section">
-                    <span class="section-header">Options Explored:</span>
-                    <ul>
-                        <li>Large Touch Screen: Rejected due to high cost and power-intensive nature, which conflicted with the battery-operation requirement.</li>
-                        <li>Multiple Potentiometers: Rejected because they were imprecise and lacked the required numerical feedback for clinical parameter setting.</li>
-                        <li>LCD Screen with Rotary Encoder: This option offered the best balance of cost-effectiveness, low power consumption, and precise digital control through a menu system.</li>
-                    </ul>
-                </div>
-                <div class="entry-section">
-                    <span class="section-header">Decision & Rationale:</span>
-                    <p>We selected a 16x2 LCD screen with a single rotary encoder and push-button. This interface was the most robust and cost-effective, allowing me to program a simple menu where clinicians could precisely set and confirm each ventilation parameter, meeting the hospital's exact usability requirements.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section id="impact">
-        <div class="container">
-            <h2>Real-World Application & Pilot with Indus Hospital</h2>
-            <div class="separator"></div>
-            <h3>Collaboration with Indus Hospital & Health Network</h3>
-            <p>This project has been a deep collaboration with Indus hospital staff from the start. The design meets all required specifications and has been approved by the biomedical department at Indus. Most of the original requirements are successfully implemented and tested. To ready the device for field testing at Indus Hospital, the following work remains to be completed:</p>
-            
-            <p>Pressure Sensor Integration:</p>
-            <p>We must add a pressure sensor to continuously monitor and control the pressure in the patient airways. While this device will be field tested at lower settings, this is an important safety feature we plan to add to the Auto-AmbuBag first. We will be using the medical-grade Honeywell pressure sensor (<a href="https://www.mouser.com/ProductDetail/Honeywell/HSCMRRV001PD2A3" target="_blank">HSCMRRV001PD2A3</a>) for this task.</p>
-        </div>
-    </section>
-
-    <section id="team" class="section-light">
-        <div class="container">
-            <h2>Our Team & Supporters</h2>
-            <div class="separator"></div>
-            
-            <h3>Core Project Team</h3>
-            <div class="team-grid">
-                <div class="team-member">
-                    <strong><a href="https://www.linkedin.com/in/batul-siddiqui-19212a378/" target="_blank">Batul Siddiqui</a></strong>
-                    <p>Hardware & Software Engineering / Technical Lead</p>
-                </div>
-                <div class="team-member">
-                    <strong><a href="https://www.linkedin.com/in/eshaal-fatima-152250237/" target="_blank">Eshaal Liaqat</a></strong>
-                    <p>3D Design & Fabrication (CAD, 3D Design)</p>
-                </div>
-                <div class="team-member">
-                    <strong><a href="https://www.linkedin.com/in/divya-gill-387884274" target="_blank">Divya Gill</a></strong>
-                    <p>Documentation</p>
-                </div>
-            </div>
-            
-            <h3>Advisors & Mentors</h3>
-            <div class="team-grid">
-                <div class="team-member">
-                    <strong>Sadia Saleem</strong>
-                    <p>Assistant Manager Biomedical - Indus Hospital</p>
-                </div>
-                <div class="team-member">
-                    <strong>Palwasha Khan</strong>
-                    <p>Respiratory Therapist - Indus Hospital</p>
-                </div>
-                <div class="team-member">
-                    <strong>Zain Masaud</strong>
-                    <p>Clinical Nursing Instructor - Indus Hospital</p>
-                </div>
-                <div class="team-member">
-                    <strong>Faraz Khan</strong>
-                    <p>Principal Hardware Engineer - Exact Sciences</p>
-                </div>
-                <div class="team-member">
-                    <strong>Adeel Siddiqui</strong>
-                    <p>VP Engineering - RelationalAI</p>
-                </div>
-            </div>
-            
-            <h3>Supporting Organizations</h3>
-            <p>We extend our sincere thanks to the medical team at <a href="https://indushospital.com.pk" target="_blank">Indus Hospital</a> for their guidance and to the <a href="https://www.monolithicpower.com/en/mps-open-source-ventilator" target="_blank">MPS Open Source Project</a> for their inspiration and hardware donation.</p>
-
-        </div>
-    </section>
-
-    <footer id="contact" class="contact">
+    <footer id="contact">
         <div class="container">
             <h2>Contact the Team</h2>
             <p>For inquiries, please contact: <a href="mailto:batulfsiddiqui@outlook.com">batulfsiddiqui@outlook.com</a></p>
-            <p>&copy; 2025 Auto-AmbuBag Project. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Close menu on link click (for mobile)
-        document.querySelectorAll('#nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.getElementById('nav-links');
-                if (window.innerWidth <= 768 && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-    </script>
-
 </body>
 </html>
-
