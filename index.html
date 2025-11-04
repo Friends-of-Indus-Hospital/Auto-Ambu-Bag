@@ -190,8 +190,8 @@
             background-repeat: no-repeat;
             color: white;
             padding: 0 20px;
-            /* Image path from your GitHub folder */
-            background-image: url('images/Complete Device and BVM 2.jpeg');
+            /* Corrected: Exact case sensitivity for .jpeg extension */
+            background-image: url('https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Complete%20Device%20and%20BVM%202.JPEG');
         }
 
         header.hero::before {
@@ -472,7 +472,7 @@
                         </ul>
                     </div>
                     <div class="image-container">
-                        <img src="images/Complete Device and BVM 2.jpeg" alt="The complete Auto-AmbuBag device">
+                        <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Complete%20Device%20and%20BVM%202.JPEG" alt="The complete Auto-AmbuBag device">
                         <figcaption>The Auto-AmbuBag Device</figcaption>
                     </div>
                 </div>
@@ -518,12 +518,12 @@
                             </ul>
 
                             <h4>Decision & Rationale</h4>
-                            <p>We selected a 12V ecosystem. Testing confirmed a 12V motor could manage the load, simplifying the design and allowing for charging from ambulance outlets. We chose a <a href="httpsa.co/d/ajeEThy" target="_blank" rel="noopener noreferrer">4-cell, 6Ah off-the-shelf Li-ion battery</a>, which is easily replaceable in Pakistan and exceeds the 2-hour requirement. For the display, a low-power 2.4-inch LED with configurable backlight proved to have negligible power draw.</p>
+                            <p>We selected a 12V ecosystem. Testing confirmed a 12V motor could manage the load, simplifying the design and allowing for charging from ambulance outlets. We chose a <a href="https://a.co/d/ajeEThy" target="_blank" rel="noopener noreferrer">4-cell, 6Ah off-the-shelf Li-ion battery</a>, which is easily replaceable in Pakistan and exceeds the 2-hour requirement. For the display, a low-power 2.4-inch LED with configurable backlight proved to have negligible power draw.</p>
                         </div>
                         <div class="image-container">
-                            <img src="images/Power System.JPEG" alt="Power System Diagram">
+                            <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Power%20system.JPEG" alt="Power System Diagram">
                             <figcaption>Power System</figcaption>
-                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -540,17 +540,17 @@
                                 <li><strong>BLDC Motor (from MPS):</strong> Excellent quality, but this <a href="https://www.mouser.com/datasheet/2/277/msm942077-24_r1.01_6-1609159.pdf" target="_blank" rel="noopener noreferrer">donated motor</a>'s 4000 RPM required a complex 100:1 planetary gear system, making the device too large.</li>
                                 <li><strong>Stepper Motor (Attempt 1):</strong> We struggled with drivers for this <a href="https://a.co/d/0LqEFvk" target="_blank" rel="noopener noreferrer">low-rpm stepper motor</a>—the TMC2208 was hot, loud, and power-hungry. The TB6600 was better but still inefficient. We finally landed on the BTS7960 chipset.</li>
                                 <li><strong>Stepper Motor (Attempt 2):</strong> The motor skipped under load. We added an encoder (as per MIT's learnings) but found the stepper motor stubbornly difficult to control.</li>
-                                <li><strong>Stepper Motor (Attempt 3):</strong> A <a href="httpsa.co/d/4Vv7Gwl" target="_blank" rel="noopener noreferrer">higher-torque motor</a> *still* skipped. We finally contacted the manufacturer, who explained that stepper motors are fundamentally unsuited for this application.</li>
+                                <li><strong>Stepper Motor (Attempt 3):</strong> A <a href="https://a.co/d/4Vv7Gwl" target="_blank" rel="noopener noreferrer">higher-torque motor</a> *still* skipped. We finally contacted the manufacturer, who explained that stepper motors are fundamentally unsuited for this application.</li>
                                 <li><strong>DC Motor (Attempt 1):</strong> We switched to a <a href="https://www.pitsco.com/products/tetrix-max-torquenado-motor-with-encoder" target="_blank" rel="noopener noreferrer">TorqueNADO MAX</a> (5 N-m). It was smooth, but too weak for the full load.</li>
                             </ol>
 
                             <h4>Decision & Rationale</h4>
-                            <p>We finally selected the <strong>goBILDA Yellow Jacket DC brushed motor</strong> (9 N-m torque at 84 rpm). This motor met all our needs: low RPM, high torque, a built-in encoder, and low cost ($55). The goBILDA ecosystem also provided readily available mounts and drivers. This long process taught us the value of methodical testing and resilience.</p>
+                            <p>We finally selected the <strong><a href="https://www.gobilda.com/5202-series-yellow-jacket-planetary-gear-motor-71-2-1-ratio-24mm-length-6mm-d-shaft-84-rpm-36mm-gearbox-3-3-5v-encoder/" target="_blank" rel="noopener noreferrer">goBILDA Yellow Jacket DC brushed motor</a></strong> (9 N-m torque at 84 rpm). This motor met all our needs: low RPM, high torque, a built-in encoder, and low cost ($55). The goBILDA ecosystem also provided readily available mounts and drivers. This long process taught us the value of methodical testing and resilience.</p>
                         </div>
                         <div class="image-container">
-                            <img src="images/Motor 12V.jpeg" alt="goBILDA Yellow Jacket Motor">
+                            <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Motor%2012V.JPEG" alt="goBILDA Yellow Jacket Motor">
                             <figcaption>goBILDA Motor with encoder</figcaption>
-                            <img src="images/Motor with gearing system.JPEG" alt="Motor Gearing System" style="margin-top: 20px;">
+                            <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Motor%20with%20gearing%20system.JPEG" alt="Motor Gearing System" style="margin-top: 20px;">
                             <figcaption>Gear system rotated by the motor</figcaption>
                         </div>
                     </div>
@@ -573,7 +573,7 @@
                             <p>We chose the potentiometer design. We will use four potentiometers to control each key parameter, allowing for rapid, instant adjustments. This tactile interface is also cheap and easy to replace in the field.</p>
                         </div>
                         <div class="image-container">
-                            <img src="images/User Controls.JPEG" alt="User Interface Controls">
+                            <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/User%20Controls.JPEG" alt="User Interface Controls">
                             <figcaption>User Interface</figcaption>
                         </div>
                     </div>
@@ -588,14 +588,22 @@
                 
                 <h3 style="text-align: center;">Collaboration with <a href="https://indushospital.com.pk" target="_blank" rel="noopener noreferrer">Indus Hospital & Health Network</a></h3>
                 
-                <p style="max-width: 900px; text-align: left;">This project has been a deep collaboration with Indus Hospital staff from the start. The design meets all required specifications and has been approved by the biomedical department at Indus. Most of the original requirements are successfully implemented and tested. To ready the device for field testing at Indus Hospital, the following work remains:</p>
-                
-                <ul class="design-bullets" style="max-width: 900px; text-align: left; margin-top: 20px;">
-                    <li><b>Pressure Sensor:</b> Integrate a <a href="https://www.mouser.com/ProductDetail/Honeywell/HSCMRRV001PD2A3" target="_blank" rel="noopener noreferrer">Honeywell medical-grade pressure sensor</a> to monitor and control airway pressure.</li>
-                    <li><b>Localization:</b> Switch the power supply to the 220V AC standard used in Pakistan.</li>
-                    <li><b>Testing & Calibration:</b> The Indus Biomedical group will test the device with a breathing simulator and calibrate it for their specific AmbuBag model.</li>
-                    <li><b>SpO2 Sensor Integration:</b> The optional sensor has been implemented in software but not yet physically incorporated into the final device.</li>
-                </ul>
+                <div class="split-layout reverse">
+                    <div class="text-content">
+                        <p>This project has been a deep collaboration with Indus Hospital staff from the start. The design meets all required specifications and has been approved by the biomedical department at Indus. Most of the original requirements are successfully implemented and tested. To ready the device for field testing at Indus Hospital, the following work remains:</p>
+                        
+                        <ul class="design-bullets" style="max-width: 900px; text-align: left; margin-top: 20px;">
+                            <li><b>Pressure Sensor:</b> Integrate a <a href="https://www.mouser.com/ProductDetail/Honeywell/HSCMRRV001PD2A3" target="_blank" rel="noopener noreferrer">Honeywell medical-grade pressure sensor</a> to monitor and control airway pressure.</li>
+                            <li><b>Localization:</b> Switch the power supply to the 220V AC standard used in Pakistan.</li>
+                            <li><b>Testing & Calibration:</b> The Indus Biomedical group will test the device with a breathing simulator and calibrate it for their specific AmbuBag model.</li>
+                            <li><b>SpO2 Sensor Integration:</b> The optional sensor has been implemented in software but not yet physically incorporated into the final device.</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Indus%20Hospital.jpg" alt="Indus Hospital">
+                        <figcaption>Indus Hospital</figcaption>
+                    </div>
+                </div>
             </div>
         </section>
 
