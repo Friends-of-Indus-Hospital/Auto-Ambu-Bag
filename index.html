@@ -181,44 +181,30 @@
         header.hero {
             position: relative;
             height: 100vh;
+            width: 100%;
+            overflow: hidden;
             display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            padding: 0 20px;
-            /* Corrected: Exact case sensitivity for .jpeg extension */
-            background-image: url('https://raw.githubusercontent.com/Friends-of-Indus-Hospital/Auto-Ambu-Bag/main/images/Complete%20Device%20and%20BVM%202.JPEG');
+            align-items: center;
+            background: black;
         }
 
-        header.hero::before {
-            content: '';
+        .video-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Darker overlay for readability */
+            overflow: hidden;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-content h1 {
-            font-size: 3.8rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .hero-content p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            max-width: 800px;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* ---------------------------------- */
@@ -445,10 +431,14 @@
     </nav>
 
     <header class="hero" id="hero">
-        <div class="hero-content">
-            <h1>Auto-AmbuBag - A Portable Automated BVM</h1>
-            <p>A collaboration with Indus Hospital for disaster response and rural healthcare in Pakistan.</p>
-        </div>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/kz4iwe07Wew?autoplay=1&mute=1&controls=1&loop=0&rel=0&showinfo=0" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen>
+        </iframe>
+    </div>
     </header>
 
     <main>
